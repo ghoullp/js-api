@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./style.css">
+    <title>Validate Javascript</title>
+</head>
+
+<body>
+    <div class="validate-form">
+        <form id="validate-form" action="" method="post" onsubmit="submitValidate();return false">
+            <h2>Validate Form</h2>
+            <div class="input-group">
+                <div class="input-row">
+                    <label for="last_name">Họ <span class="require">*</span></label>
+                    <input type="text" placeholder="Họ" id="last_name" name="last_name" autocomplete="on" />
+
+                </div>
+                <div class="input-row">
+                    <label for="first_name">Tên <span class="require">*</span></label>
+                    <input type="text" placeholder="Tên" id="first_name" name="first_name" autocomplete="on" />
+
+                </div>
+            </div>
+            <div class="input-row">
+                <label for="age">Tuổi <span class="require">*</span></label>
+                <input type="number" placeholder="Tuổi" id="age" name="age" autocomplete="on"/>
+            </div>
+            <div class="input-row">
+                <label for="gender">Giới tính <span class="require">*</span></label>
+                <select name="gender" id="gender">
+                    <option value="-1" selected="">[Chọn]</option>
+                    <option value="Nam">Nam</option>
+                    <option value="Nữ">Nữ</option>
+                    <option value="Khác">Khác</option>
+                 </select>
+            </div>
+            <div class="input-row">
+                <label for="phone">Số điện thoại <span class="require">*</span></label>
+                <input type="number" placeholder="Số điện thoại" id="phone" autocomplete="on"/>
+            </div>
+            <div class="input-row">
+                <label for="email">Email <span class="require">*</span></label>
+                <input type="Email" placeholder="Email" id="email" name="email" autocomplete="on" />
+            </div>
+            <div class="input-row">
+                <label>Tình trạng hôn nhân <span class="require">*</span></label>
+                <div class="ff-el-input--content">
+                    <div class="field-marital">
+                        <label class="field-marital-label" for="radio_marital1">
+                            <input type="radio" name="input_radio" class="form-check-radio" value="Married" id="radio_marital1" onclick="genderVal(this)";>
+                            <span>Married</span>
+                        </label>
+                    </div>
+                    <div class="field-marital">
+                        <label class="field-marital-label" for="radio_marital2">
+                            <input type="radio" name="input_radio" class="form-check-radio" value="Unmarried" id="radio_marital2" onclick="genderVal(this)";>
+                            <span>Unmarried</span>
+                        </label>
+                    </div>
+                    <div class="field-marital">
+                        <label class="field-marital-label" for="radio_marital3">
+                            <input type="radio" name="input_radio" class="form-check-radio" value="Other" id="radio_marital3" onclick="genderVal(this)";>
+                            <span>Other</span>
+                        </label>
+                    </div>
+                </div>
+            </div>
+            <div class="input-row marital_other" style="display: none;">
+                <label for="marital_other">Tình trạng hôn nhân (Khác) <span class="require">*</span></label>
+                <input type="text" placeholder="Tình trạng hôn nhân (Khác)" id="marital_other" name="marital_other" autocomplete="on" />
+            </div>
+            <div class="input-row">
+                <label for="occupation">Nghề nghiệp</label>
+                <input type="text" placeholder=" Nghề nghiệp" id="occupation" name="occupation" autocomplete="on" />
+            </div>
+            <div class="input-row">
+                <label for="country">Quốc gia</label>
+                <select name="country" id="country">
+                    <option value="-1" selected="">[Chọn]</option>
+                    <option value="USA">USA</option>
+                    <option value="UK">UK</option>
+                    <option value="INDIA">INDIA</option>
+                    <option value="Vietnam">Vietnam</option>
+                 </select>
+            </div>
+            <div class="input-row">
+                <label for="address">Địa chỉ</label>
+                <input type="text" placeholder="Địa chỉ" id="address" name="address" autocomplete="on" />
+            </div>
+            <div class="input-row">
+                <label for="description">Giới thiệu</label>
+                <textarea name="description" id="description" class="form-control" rows="2" cols="2"></textarea>
+            </div>
+            
+            
+            <div class="input-row">
+                <button class="btn" id="btn-validate">
+                    Submit
+                </button>
+            </div>
+        </form>
+        
+    </div>
+</body>
+
+<script src="main.js"></script>
+
+</html>

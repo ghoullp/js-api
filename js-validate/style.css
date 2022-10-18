@@ -1,0 +1,182 @@
+*,
+::after,
+::before {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background-color: #f6f6f6;
+    color: #34465c;
+    font-size: 16px;
+    font-family: Roboto, sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.validate-form {
+    width: 720px;
+    padding: 2rem;
+    box-shadow: 0 0 30px rgba(0, 0, 0, 0.1);
+    background-color: #fff;
+    border-radius: 7px;
+}
+
+.validate-form h2 {
+    margin-bottom: 1.5rem;
+    text-align: center;
+}
+
+.input-row {
+    margin-bottom: 1.5rem;
+}
+select,
+textarea,
+.input-row input {
+    width: 100%;
+    border: 1px solid #ccc;
+    height: 40px;
+    line-height: 40px;
+    padding: 0 1rem;
+    outline: none;
+    transition: all 0.3s ease-out;
+    background-color: white;
+}
+textarea {
+    height: auto;
+}
+.input-row input:focus {
+    border: 1px solid #00bfa6;
+    outline: none;
+}
+.input__note textarea {
+    width: 100%;
+    min-height: 200px;
+    border: 1px solid #ccc;
+    user-select: none;
+    resize: none;
+    padding: 1rem;
+}
+.input__note textarea:focus {
+    border: 1px solid #00bfa6;
+}
+.input-row {
+    position: relative;
+}
+.input-row:last-child {
+    margin-bottom: 0;
+}
+.input-row.success select,
+.input-row.success input {
+    border-color: #2ecc71;
+}
+.input-row.error select,
+.input-row.error input {
+    border-color: #e74c3c;
+}
+.input-row .small {
+    color: #e74c3c;
+    position: absolute;
+    bottom: -20px;
+    left: 0;
+    visibility: hidden;
+    font-size: 12px;
+}
+.input-row.error .small {
+    visibility: visible;
+}
+.input-group .input-row {
+  margin-bottom: 1.5rem;
+}
+.btn {
+    font-size: 12px;
+    font-weight: 400;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    -webkit-border-radius: 2px;
+    -moz-border-radius: 2px;
+    -ms-border-radius: 2px;
+    border-radius: 2px;
+    -webkit-transition: 0.5s;
+    -o-transition: 0.5s;
+    transition: 0.5s;
+    padding: 8px 15px !important;
+}
+#btn-validate {
+    display: inline-block;
+    color: #fff;
+    background-color: #00bfa6;
+    border: 2px solid #00bfa6;
+    outline: 0;
+    cursor: pointer;
+    text-decoration: none !important;
+    position: relative;
+    z-index: 20;
+    overflow: hidden;
+}
+.input-row label {
+  display: inline-block;
+  font-weight: 600;
+  line-height: inherit;
+  font-style: normal;
+  font-size: 18px;
+  letter-spacing: 0em;
+  color: #002f6b;
+  margin-bottom: 5px;
+}
+.input-group {
+    display: flex;
+    gap: 15px;
+    width: 100%;
+}
+.input-group .input-row {
+    padding-left: 0;
+    width: 100%;
+}
+.input-group .input-row:last-of-type {
+  flex-grow: 1;
+  padding-right: 0;
+}
+.field-marital label {
+  cursor: pointer;
+  margin-bottom: 7px;
+  font-weight: 400;
+  font-style: normal;
+  font-size: 18px;
+  letter-spacing: 0em;
+  color: #002f6b;
+  line-height: 21px;
+}
+input.form-check-radio {
+    position: relative;
+    top: -1px;
+    vertical-align: middle;
+    display: inline-block;
+    margin: 0;
+    padding: 0;
+    height: 14px;
+    width: 14px;
+    line-height: 21px;
+}
+.field-marital span {
+    cursor: pointer;
+    font-weight: 400;
+    font-style: normal;
+    font-size: 14px;
+    line-height: 18px;
+    letter-spacing: 0em;
+    color: #002f6b;
+}
+.require {
+    color: red;
+}
+#result-list p {
+  font-size: 14px;
+  color: black;
+}
+#result-list p span {
+  font-size: 18px;
+  font-weight: 700;
+}
