@@ -10,8 +10,9 @@
 </head>
 
 <body>
+    <span class="notics"></span>
     <div class="validate-form">
-        <form id="validate-form" action="" method="post" onsubmit="submitValidate();return false">
+        <form id="validate-form" name="validateForm" action="" method="post" onsubmit="submitValidate();return false">
             <h2>Validate Form</h2>
             <div class="input-group">
                 <div class="input-row">
@@ -32,7 +33,7 @@
             <div class="input-row">
                 <label for="gender">Giới tính <span class="require">*</span></label>
                 <select name="gender" id="gender">
-                    <option value="-1" selected="">[Chọn]</option>
+                    <option value="" selected="">[Chọn]</option>
                     <option value="Nam">Nam</option>
                     <option value="Nữ">Nữ</option>
                     <option value="Khác">Khác</option>
@@ -80,7 +81,7 @@
             <div class="input-row">
                 <label for="country">Quốc gia</label>
                 <select name="country" id="country">
-                    <option value="-1" selected="">[Chọn]</option>
+                    <option value="" selected="">[Chọn]</option>
                     <option value="USA">USA</option>
                     <option value="UK">UK</option>
                     <option value="INDIA">INDIA</option>
@@ -105,6 +106,99 @@
         </form>
         
     </div>
+
+    <div id="result-list-wrap">
+        <h3 id="result-list-tỉtle">Danh sách</h3>
+        <div class="filter">
+            <select name="filter_age" id="filter-age" onchange="filterBy(this.value)">
+                <option value="" selected="">[Lọc theo tuổi]</option>
+                <option value="<=20"><=20</option>
+                <option value=">20">>20</option>
+                <option value="<50"><50</option>
+            </select>
+
+            <select name="filter_sort" id="filter-sort" onchange="filterBy(this.value)">
+                <option value="" selected="">[Sắp xếp]</option>
+                <option value="firstName">Sắp xếp theo tên(tăng dần)</option>
+                <option value="age">Sắp xếp theo tuổi(tăng dần)</option>
+            </select>
+
+            <select name="filter_country" id="filter-country" onchange="filterBy(this.value)">
+                <option value="" selected="">[Lọc theo quốc gia]</option>
+                <option value="USA">USA</option>
+                <option value="UK">UK</option>
+                <option value="INDIA">INDIA</option>
+                <option value="Vietnam">Vietnam</option>
+             </select>
+        </div>
+        <table id="result-list">
+            <thead>
+                <tr>
+                    <th class="table_item">Họ </th>
+                    <th class="table_item">Tên </th>
+                    <th class="table_item">Tuổi </th>
+                    <th class="table_item">Giới tính </th>
+                    <th class="table_item">Số điện thoại </th>
+                    <th class="table_item">Email </th>
+                    <th class="table_item">Tình trạng hôn nhân </th>
+                    <th class="table_item">Nghề nghiệp</th>
+                    <th class="table_item">Quốc gia</th>
+                    <th class="table_item">Địa chỉ</th>
+                    <th class="table_item">Giới thiệu</th>
+                    <th class="table_item">Ngày Tạo</th>
+                    <th class="table_item">Edit</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td class="loading-animation"><div></div></td>
+                    <td class="loading-animation"><div></div></td>
+                    <td class="loading-animation"><div></div></td>
+                    <td class="loading-animation"><div></div></td>
+                    <td class="loading-animation"><div></div></td>
+                    <td class="loading-animation"><div></div></td>
+                    <td class="loading-animation"><div></div></td>
+                    <td class="loading-animation"><div></div></td>
+                    <td class="loading-animation"><div></div></td>
+                    <td class="loading-animation"><div></div></td>
+                    <td class="loading-animation"><div></div></td>
+                    <td class="loading-animation"><div></div></td>
+                    <td class="loading-animation"><div></div></td>
+                </tr>
+                <tr>
+                    <td class="loading-animation"><div></div></td>
+                    <td class="loading-animation"><div></div></td>
+                    <td class="loading-animation"><div></div></td>
+                    <td class="loading-animation"><div></div></td>
+                    <td class="loading-animation"><div></div></td>
+                    <td class="loading-animation"><div></div></td>
+                    <td class="loading-animation"><div></div></td>
+                    <td class="loading-animation"><div></div></td>
+                    <td class="loading-animation"><div></div></td>
+                    <td class="loading-animation"><div></div></td>
+                    <td class="loading-animation"><div></div></td>
+                    <td class="loading-animation"><div></div></td>
+                    <td class="loading-animation"><div></div></td>
+                </tr>
+                <tr>
+                    <td class="loading-animation"><div></div></td>
+                    <td class="loading-animation"><div></div></td>
+                    <td class="loading-animation"><div></div></td>
+                    <td class="loading-animation"><div></div></td>
+                    <td class="loading-animation"><div></div></td>
+                    <td class="loading-animation"><div></div></td>
+                    <td class="loading-animation"><div></div></td>
+                    <td class="loading-animation"><div></div></td>
+                    <td class="loading-animation"><div></div></td>
+                    <td class="loading-animation"><div></div></td>
+                    <td class="loading-animation"><div></div></td>
+                    <td class="loading-animation"><div></div></td>
+                    <td class="loading-animation"><div></div></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    
 </body>
 
 <script src="main.js"></script>

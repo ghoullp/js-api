@@ -14,6 +14,7 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
+    flex-direction: column;
 }
 
 .validate-form {
@@ -22,6 +23,7 @@ body {
     box-shadow: 0 0 30px rgba(0, 0, 0, 0.1);
     background-color: #fff;
     border-radius: 7px;
+    margin-top: 30px;
 }
 
 .validate-form h2 {
@@ -115,6 +117,7 @@ textarea {
     position: relative;
     z-index: 20;
     overflow: hidden;
+    width: 100%;
 }
 .input-row label {
   display: inline-block;
@@ -179,4 +182,110 @@ input.form-check-radio {
 #result-list p span {
   font-size: 18px;
   font-weight: 700;
+}
+
+table {
+    border: 1px solid #ddd;
+    max-width: 1366px;
+    border-collapse: collapse;
+    width: 100%;
+}
+thead {
+  background: #e2fdf7;
+}
+th {
+  padding: 10px;
+  text-align: left;
+  border: none;
+  font-size: 14px;
+}
+tbody tr {
+  border-bottom: 1px solid #efefef;
+}
+td {
+    background: #fff;
+    padding: 10px;
+    border-right: 1px solid #efefef;
+    font-size: 14px;
+}
+@keyframes placeHolderShimmer {
+  0% {
+    background: #ececec;
+  }
+  30% {
+    background: #F7F7F7;
+  }
+  50% {
+    background: #ececec;
+  }
+  80% {
+    background: #F7F7F7;
+  }
+  100% {
+    background: #ececec;
+  }
+}
+.loading-animation {
+    padding: 0;
+}
+.loading-animation div {
+    margin: 10px;
+    padding: 10px;
+    animation: placeHolderShimmer 3s infinite;
+}
+#result-list-wrap {
+  margin-top: 40px;
+  margin-bottom: 40px;
+  width: 1366px;
+    max-width: 100%;
+}
+#result-list-wrap h3 {
+  text-align: center;
+  font-size: 30px;
+  margin-bottom: 20px;
+}
+#result-err {
+  color: red;
+  margin-bottom: 10px;
+  text-align: center;
+}
+#result-succ {
+  color: #36e171;
+  margin-bottom: 10px;
+  text-align: center;
+}
+.button {
+  background-color: #4CAF50;
+  border: none;
+  color: white;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  margin: 2px;
+  cursor: pointer;
+  font-weight: 600;
+  padding: 6px 12px !important;
+}
+.button.btn-delete {
+  background-color: #f44336;
+}
+.filter > * {
+  width: 32%;
+}
+.filter {
+  display: flex;
+  margin-bottom: 20px;
+  justify-content: space-between;
+  width: 25%;
+    margin-right: auto;
+    width: 45%;
+}
+#validate-form a {
+  cursor: pointer;
+  text-align: center;
+  display: block;
+  padding: 5px;
+  background: #00bbe6;
+  color: white;
+  font-family: MS Shell Dlg 2;
 }

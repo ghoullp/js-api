@@ -1,59 +1,70 @@
 const getElement = (name) => document.getElementById(name);
-
-const last_nameEle = getElement('last_name');
-const first_nameEle = getElement('first_name');
-const ageEle = getElement('age');
-const genderEle = getElement('gender');
-const input_radioEle = document.getElementsByName('input_radio');
+let input_radioEle = document.getElementsByName('input_radio');
 const marital_otherEle = getElement('marital_other');
-const emailEle = getElement('email');
-const phoneEle = getElement('phone');
-
-const occupationEle = getElement('occupation');
-const countryEle = getElement('country');
-const addressEle = getElement('address');
-const descriptionEle = getElement('description');
 
 const vform = getElement('validate-form');
 const inputEles = document.querySelectorAll('.input-row');
-const result_list = document.createElement('div');
+const cellEles = document.querySelectorAll('td');
+const result_list = document.createElement('table');
+const callApiError = document.createElement('p');
+const cancelEdit = document.createElement("a");
+const btn_sbt = getElement('btn-validate');
+// API url
+const apiUrl = 'https://6357f02ec26aac906f36d387.mockapi.io/phuocjs/users';
 
-submitValidate = () => {
-    let last_nameValue = last_nameEle.value;
-    let first_nameValue = first_nameEle.value;
-    let ageValue = ageEle.value;
-    let genderValue = genderEle.value;
-    let marital_otherValue = marital_otherEle.value;
-    let emailValue = emailEle.value;
-    let phoneValue = phoneEle.value;
-    let occupationValue = occupationEle.value;
-    let countryValue = countryEle.value;
-    let addressValue = addressEle.value;
-    let descriptionValue = descriptionEle.value;
+const getDataForm = () => {
+    const marital_otherValue = getElement('marital_other').value;
+    const marital_Val = (checkRadio(input_radioEle) == 'Other') ? ((marital_otherValue) ? marital_otherValue : '' ) : checkRadio(input_radioEle);
+    const data_firstName = (getElement('last_name').value ? (getElement('first_name').value[0].toUpperCase() + getElement('first_name').value.slice(1)) : '');;
+    return {
+       firstName: data_firstName,
+       lastName: getElement('last_name').value,
+       gender: getElement('gender').value,
+       age: getElement('age').value,
+       phone: getElement('phone').value,
+       email: getElement('email').value,
+       maritalStatus: marital_Val,
+       job: getElement('occupation').value,
+       country: getElement('country').value,
+       address: getElement('address').value,
+       description: getElement('description').value,
+       createAt: createDate(),
+    }
+}
+
+submitValidate = async () => {
+    const dataForm = getDataForm();
 
     Array.from(inputEles).map((ele) =>
         ele.classList.remove('success', 'error'),
     );
 
-    checkValidate();
+    checkValidate(dataForm);
 
     let label = document.querySelectorAll('.input-row > label');
-    result_list.setAttribute("id", "result-list");
 
     if (document.getElementsByClassName('error').length>0) {
         result_list.innerHTML = "";
     } else {
-        vform.appendChild(result_list);
-
-        let items = [last_nameValue,first_nameValue,ageValue,genderValue,phoneValue,emailValue,checkRadio(input_radioEle),marital_otherValue,occupationValue,countryValue,addressValue,descriptionValue];
-        let txt='';
-        items.forEach(getValue);
-        function getValue(value, index, array) {
-            if (value) {
-                txt += '<p><span>'+label[index].innerText.replace("*", "")+':</span> '+value + "</p>";
-            }
+        if (btn_sbt.hasAttribute('data-id')) {
+            let data_id = btn_sbt.getAttribute("data-id");
+            await fetch(apiUrl+'/'+data_id, {
+                method: 'PUT',
+                headers: {
+                  'Content-type': 'application/json'
+                },
+                body: JSON.stringify(dataForm)
+            });
+        } else {
+            await fetch(apiUrl, {
+                method: 'POST',
+                headers: {
+                  'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(dataForm)
+            });
         }
-        result_list.innerHTML = txt;
+        getDataCall()
     }
 };
 
@@ -65,42 +76,48 @@ const genderVal = (sel) => {
     }
 }
 
-checkValidate = () => {
-    let last_nameValue = last_nameEle.value;
-    let first_nameValue = first_nameEle.value;
-    let ageValue = ageEle.value;
-    let genderValue = genderEle.value;
-    let marital_otherValue = marital_otherEle.value;
-    let emailValue = emailEle.value;
-    let phoneValue = phoneEle.value;
-    let occupationValue = occupationEle.value;
-    let countryValue = countryEle.value;
-    let addressValue = addressEle.value;
-    let descriptionValue = descriptionEle.value;
+// Check Validate
+checkValidate = (getDataForm) => {
     document.querySelectorAll('.small').forEach(e => e.remove());
 
-    if (last_nameValue == '') {
-        setError(last_nameEle, 'Họ không được để trống');
+    if (getDataForm.firstName == '') {
+        setError(getElement('first_name'), 'Tên không được để trống');
     } else {
-        setSuccess(last_nameEle);
+        setSuccess(getElement('first_name'));
     }
 
-    if (first_nameValue == '') {
-        setError(first_nameEle, 'Tên không được để trống');
+    if (getDataForm.lastName == '') {
+        setError(getElement('last_name'), 'Họ không được để trống');
     } else {
-        setSuccess(first_nameEle);
+        setSuccess(getElement('last_name'));
     }
 
-    if (ageValue == '') {
-        setError(ageEle, 'Tuổi không được để trống');
+    if (getDataForm.gender == '') {
+        setError(getElement('gender'), 'Giới tính không được để trống');
     } else {
-        setSuccess(ageEle);
+        setSuccess(getElement('gender'));
     }
 
-    if (genderValue == '-1') {
-        setError(genderEle, 'Giới tính không được để trống');
+    if (getDataForm.age == '') {
+        setError(getElement('age'), 'Tuổi không được để trống');
     } else {
-        setSuccess(genderEle);
+        setSuccess(getElement('age'));
+    }
+
+    if (getDataForm.phone == '') {
+        setError(getElement('phone'), 'Số điện thoại không được để trống');
+    } else if (!isPhone(getDataForm.phone)) {
+        setError(getElement('phone'), 'Số điện thoại không đúng định dạng');
+    } else {
+        setSuccess(getElement('phone'));
+    }
+
+    if (getDataForm.email == '') {
+        setError(getElement('email'), 'Email không được để trống');
+    } else if (!isEmail(getDataForm.email)) {
+        setError(getElement('email'), 'Email không đúng định dạng');
+    } else {
+        setSuccess(getElement('email'));
     }
 
     let maritalElepr = document.getElementsByClassName("ff-el-input--content");
@@ -110,27 +127,12 @@ checkValidate = () => {
         setSuccess(maritalElepr[0]);
     }
 
-    if (checkRadio(input_radioEle) == 'Other' && marital_otherValue == '') {
+    if (getDataForm.maritalStatus == '') {
         setError(marital_otherEle, 'Mục không được để trống');
     } else {
         setSuccess(marital_otherEle);
     }
-
-    if (emailValue == '') {
-        setError(emailEle, 'Email không được để trống');
-    } else if (!isEmail(emailValue)) {
-        setError(emailEle, 'Email không đúng định dạng');
-    } else {
-        setSuccess(emailEle);
-    }
-
-    if (phoneValue == '') {
-        setError(phoneEle, 'Số điện thoại không được để trống');
-    } else if (!isPhone(phoneValue)) {
-        setError(phoneEle, 'Số điện thoại không đúng định dạng');
-    } else {
-        setSuccess(phoneEle);
-    }
+    
     if (document.getElementsByClassName('error').length>0) {
         document.getElementsByClassName('error')[0].querySelectorAll('input, select')[0].focus();
     }
@@ -163,3 +165,124 @@ const checkRadio = (radio) => {
   }
   return false;
 }
+
+//get data
+
+const getDataCall = async (compare) => {
+    const response = await fetch(apiUrl);
+    let datas = await response.json();
+    const tbody = document.getElementsByTagName('tbody');
+
+    if (compare == 'age') {
+        await datas.sort((a,b) => (a.age > b.age) ? 1 : ((b.age > a.age) ? -1 : 0));
+    } else if(compare == 'firstName') {
+        await datas.sort((a,b) => (a.firstName > b.firstName) ? 1 : ((b.firstName > a.firstName) ? -1 : 0));
+    } else if(compare == '<=20'){
+        datas = await datas.filter(({age}) => (age <= 20));
+    } else if(compare == '>20'){
+        datas = await datas.filter(({age}) => (age > 20));
+    } else if(compare == '<50'){
+        datas = await datas.filter(({age}) => (age < 50));
+    } else if (compare) {
+        datas = await datas.filter(({country}) => (country == compare));
+    } else {
+        await datas.sort((a,b) => 0);
+    }
+
+    let dataHtml = datas.map((data) => {
+        const data_email = data.email.toLowerCase();
+        return `<tr><td>${data.lastName}</td><td>${data.firstName}</td><td>${data.age}</td><td>${data.gender}</td><td>${data.phone}</td><td>${data_email}</td><td>${data.maritalStatus}</td><td>${data.job}</td><td>${data.country}</td><td>${data.address}</td><td>${data.description}</td><td>${data.createAt}</td><td><button class="button btn-delete" data-id="${data.id}" onclick="deleteData(this.getAttribute('data-id'));">Xóa</button><button class="button btn-edit" data-id="${data.id}" onclick="putData(this.getAttribute('data-id'));">Sửa</button></td></tr>`;
+    });
+    
+    tbody[0].innerHTML = dataHtml.join('');
+
+    Array.from(cellEles).map((ele) =>
+        ele.classList.remove('loading-animation'),
+    );
+}
+
+const createDate = () => {
+    let today = new Date();
+    const dd = String(today.getDate()).padStart(2, '0');
+    const mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
+    const yyyy = today.getFullYear();
+
+    today = dd + '/' + mm + '/' + yyyy;
+    return today;
+}
+
+//Delete User
+const deleteData = async (data_id) => {
+    const answer = window.confirm("Bạn có muốn xóa User?");
+    if (answer) {
+        let url = apiUrl+'/'+data_id;
+        await fetch(url, {
+            method: 'DELETE',
+        });
+        getDataCall();
+    }
+}
+
+//Update User
+const putData = async (data_id) => {
+    cancelEdit.innerHTML = "Cancel";
+
+    const response = await fetch(apiUrl+'/'+data_id);
+    let datas = await response.json();
+
+    getElement('first_name').value = datas.firstName;
+    getElement('last_name').value = datas.lastName;
+    getElement('gender').value = datas.gender;
+    getElement('age').value = datas.age;
+    getElement('phone').value = datas.phone;
+    getElement('email').value = datas.email;
+    if (datas.maritalStatus == 'Unmarried' || datas.maritalStatus == 'Married') {
+        document.validateForm.input_radio.value = datas.maritalStatus;
+    } else {
+        marital_otherEle.value = datas.maritalStatus
+    }
+    getElement('occupation').value = datas.job;
+    getElement('country').value = datas.country;
+    getElement('address').value = datas.address;
+    getElement('description').value = datas.description;
+
+    await btn_sbt.setAttribute("data-id", data_id);
+    await vform.appendChild(cancelEdit);
+
+    await window.scroll({
+        top: vform.scrollTop,
+        behavior: 'smooth',
+    })
+    console.log(this.parentNode.style.display);
+    this.parentNode.style.background = '#c3f4ff';
+
+    cancelEdit.onclick = await function () {
+        const input = document.getElementsByTagName('input');
+        const select = document.getElementsByTagName('select');
+        const textarea = document.getElementsByTagName('textarea');
+        resetValue(input);
+        resetValue(select);
+        resetValue(textarea);
+        btn_sbt.removeAttribute("data-id");
+        this.remove()
+    }
+}
+
+//cancel edit
+const resetValue = async (input) => {
+    await Array.from(input).map((ele) =>{
+        if (ele.type == "radio") {
+            ele.checked = false;
+        } else {
+            ele.value = '';
+        }
+    });
+}
+
+//filter
+const filterBy = async (val) => {
+    getDataCall(val); 
+}
+
+//show data
+getDataCall();
