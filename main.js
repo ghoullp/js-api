@@ -6,7 +6,7 @@ const vform = getElement('validate-form');
 const inputEles = document.querySelectorAll('.input-row');
 const cellEles = document.querySelectorAll('td');
 const result_list = document.createElement('table');
-const callApiError = document.createElement('p');
+let callApiError = document.createElement('p');
 const cancelEdit = document.createElement("a");
 const btn_sbt = getElement('btn-validate');
 // API url
@@ -55,6 +55,10 @@ submitValidate = async () => {
                 },
                 body: JSON.stringify(dataForm)
             });
+            callApiError.innerText='';
+            callApiError.appendChild(document.createTextNode("Đã lưu!"));
+            await vform.insertBefore(callApiError, cancelEdit);
+            
         } else {
             await fetch(apiUrl, {
                 method: 'POST',
@@ -68,11 +72,15 @@ submitValidate = async () => {
     }
 };
 
+const maritalDisplay = (marital) => {
+    marital_otherEle.parentNode.style.display = marital
+}
+
 const genderVal = (sel) => {
     if(sel.value == 'Other') {
-        marital_otherEle.parentNode.style.display = "block";
+        maritalDisplay("block");
     } else {
-        marital_otherEle.parentNode.style.display = "none";
+        maritalDisplay("none");
     }
 }
 
@@ -226,6 +234,7 @@ const deleteData = async (data_id) => {
 //Update User
 const putData = async (data_id) => {
     cancelEdit.innerHTML = "Cancel";
+    const radio_marital = document.validateForm.input_radio;
 
     const response = await fetch(apiUrl+'/'+data_id);
     let datas = await response.json();
@@ -237,9 +246,12 @@ const putData = async (data_id) => {
     getElement('phone').value = datas.phone;
     getElement('email').value = datas.email;
     if (datas.maritalStatus == 'Unmarried' || datas.maritalStatus == 'Married') {
-        document.validateForm.input_radio.value = datas.maritalStatus;
+        radio_marital.value = datas.maritalStatus;
+        maritalDisplay("none");;
     } else {
-        marital_otherEle.value = datas.maritalStatus
+        radio_marital.value = 'Other';
+        marital_otherEle.value = datas.maritalStatus;
+        maritalDisplay("block");
     }
     getElement('occupation').value = datas.job;
     getElement('country').value = datas.country;
@@ -253,8 +265,6 @@ const putData = async (data_id) => {
         top: vform.scrollTop,
         behavior: 'smooth',
     })
-    console.log(this.parentNode.style.display);
-    this.parentNode.style.background = '#c3f4ff';
 
     cancelEdit.onclick = await function () {
         const input = document.getElementsByTagName('input');
@@ -273,10 +283,12 @@ const resetValue = async (input) => {
     await Array.from(input).map((ele) =>{
         if (ele.type == "radio") {
             ele.checked = false;
+            maritalDisplay("none");
         } else {
             ele.value = '';
         }
     });
+    callApiError.remove();
 }
 
 //filter

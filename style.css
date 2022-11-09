@@ -289,3 +289,8 @@ td {
   color: white;
   font-family: MS Shell Dlg 2;
 }
+#validate-form > p {
+    color: #00bfa6;
+    margin-bottom: 10px;
+    text-align: center;
+}
